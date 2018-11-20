@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="global">
 		<input type="text" v-model="searchText" placeholder="Nome da UBS" @keyup.enter="search">
 		<button @click="search">Pesquisar</button>
 	</div>
@@ -7,7 +7,6 @@
 
 <script>
 	export default{
-		name: "header",
 		data(){
 			return{
 				searchText: ""
@@ -21,3 +20,14 @@
 		}
 	}
 </script>
+
+<style>
+.global{
+	padding-top: 5px;
+	padding-bottom: 5px;
+	text-align: center;
+}
+input{
+	width: 50%;
+}
+</style>
