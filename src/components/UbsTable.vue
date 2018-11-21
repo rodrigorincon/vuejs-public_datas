@@ -1,6 +1,6 @@
 <template>
 	<div class="ubsTable">
-		<table border="1">
+		<table border="1" v-if="ubs_list.length > 0">
 			<thead>
 				<th></th>
 				<th>Nome</th>

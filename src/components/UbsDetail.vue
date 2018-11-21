@@ -3,7 +3,7 @@
 		<div style="text-align: left;">
 			<h1>{{ubs.nom_estab}}</h1>
 			<h4>{{ endereco() }}</h4>
-			<h4>{{ formatPhone(ubs.dsc_telefone) }}</h4>
+			<h4>{{ formatPhone() }}</h4>
 		</div>
 		<div style="width: 100%;">
 			<div style="width=50%;">
@@ -39,7 +39,11 @@
 			endereco(){
 				return this.ubs.dsc_endereco + ", " + this.ubs.dsc_bairro + ", " + this.ubs.dsc_cidade
 			},
-			formatPhone(phone){
+			formatPhone(){
+				var phone = this.ubs.dsc_telefone
+				if(phone === null || phone.length != 10){ //quando o valor é "nao se aplica"
+					return "Não possui número de telefone cadastrado"
+				}
 				return "("+phone.substr(0,2)+") "+phone.substr(2,4)+"-"+phone.substr(6)
 			}
 		}
