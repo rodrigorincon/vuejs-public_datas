@@ -6,7 +6,9 @@
   </head>
   <body>
     <div id="app">
-    	<app></app>
+      <keep-alive>
+    	   <router-view :ubs_list="ubs_list"></router-view>
+      </keep-alive>
     </div>
     <script src="/dist/build.js"></script>
   </body>
