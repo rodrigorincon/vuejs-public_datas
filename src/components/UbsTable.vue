@@ -1,5 +1,5 @@
 <template>
-	<div class="global">
+	<div class="ubsTable">
 		<table border="1">
 			<thead>
 				<th></th>
@@ -38,7 +38,7 @@
 </script>
 
 <style>
-.global{
+.ubsTable{
 	padding-top: 10px;
 }
 </style>

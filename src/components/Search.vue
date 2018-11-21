@@ -1,6 +1,6 @@
 <template>
-	<div class="global">
-		<input type="text" v-model="searchText" placeholder="Nome da UBS" @keyup.enter="search">
+	<div class="search">
+		<input type="text" v-model="searchText" placeholder="Nome da UBS" @keyup.enter="search" class="input-search">
 		<button @click="search">Pesquisar</button>
 	</div>
 </template>
@@ -22,12 +22,12 @@
 </script>
 
 <style>
-.global{
+.search{
 	padding-top: 5px;
 	padding-bottom: 5px;
 	text-align: center;
 }
-input{
+.input-search{
 	width: 50%;
 }
 </style>
