@@ -12,7 +12,7 @@
 				<tr v-for="ubs in ubs_list">
 					<td></td>
 					<td> {{ubs.nom_estab}} </td>
-					<td> {{ endereco(ubs) }} </td>
+					<td> {{ubs.endereco() }} </td>
 					<td> <router-link :to="{ name: 'ubs', params: {id: ubs.cod_cnes} }"> Mais </router-link></td>
 					<td> </td>
 				</tr>
@@ -23,12 +23,7 @@
 
 <script>
 	export default {
-		props: ["ubs_list"],
-		methods:{
-			endereco(ubs){
-				return ubs.dsc_endereco + ", " + ubs.dsc_bairro + ", " + ubs.dsc_cidade
-			}
-		}
+		props: ["ubs_list"]
 	}
 </script>
 
