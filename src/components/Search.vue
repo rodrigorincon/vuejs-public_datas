@@ -4,7 +4,7 @@
 		<select v-model="select_value">
 			<option disabled value="">Filtrar por</option>
 			<option>Nome</option>
-			<option>Cidade</option>
+			<option>Endereco</option>
 		</select>
 		<button @click="search">Pesquisar</button>
 		<button @click="clean">Limpar</button>

@@ -4,12 +4,12 @@ import VueRouter from 'vue-router'
 import routes from './routes.js'
 Vue.use(VueRouter)
 
+import Papa from 'papaparse'
+import axios from 'axios'
+
 import {Ubs} from "./util/Ubs.js"
 
-var ubs_list = [
-	new Ubs({vlr_latitude: -10.9112370014188, vlr_longitude: -37.0620775222768, cod_munic: 280030, cod_cnes: 3492, nom_estab: "US OSWALDO DE SOUZA", dsc_endereco: "TV ADALTO BOTELHO", dsc_bairro: "GETULIO VARGAS", dsc_cidade: "Aracaju", dsc_telefone: "7931791326", dsc_estrut_fisic_ambiencia: "Desempenho acima da média", dsc_adap_defic_fisic_idosos: "Desempenho mediano ou um pouco abaixo da média", dsc_equipamentos: "Desempenho muito acima da média" , dsc_medicamentos: "Desempenho acima da média"}),
-	new Ubs({vlr_latitude: -23896, vlr_longitude: -53.41, cod_munic: 411885, cod_cnes: 6811299, nom_estab: "UNIDADE DE ATENCAO PRIMARIA SAUDE DA FAMILIAA", dsc_endereco: "RUA GUILHERME BRUXEL", dsc_bairro: "CENTRO", dsc_cidade: "Perobal", dsc_telefone: "3337411423", dsc_estrut_fisic_ambiencia: "Desempenho acima da média", dsc_adap_defic_fisic_idosos: "Desempenho mediano ou um pouco abaixo da média", dsc_equipamentos: "Desempenho muito acima da média" , dsc_medicamentos: "Desempenho acima da média"})
-]
+var ubs_list = []
 
 import {EventBus} from './util/event-bus';
 
@@ -21,10 +21,26 @@ new Vue({
     }
   },
   created(){
-  	this.ubs_list = ubs_list
+    axios.get("http://repositorio.dados.gov.br/saude/unidades-saude/unidade-basica-saude/ubs.csv",
+    {
+      mode: 'no-cors'
+    }).then(response =>{
+      var listOfArrays = Papa.parse(response.data,{header: true}).data
+      this.populateUbsList(listOfArrays)
+      this.ubs_list = ubs_list
+    })
     EventBus.$on('filter', this.filterUbs )
   },
   methods:{
+    populateUbsList(arrayOrObject){
+      if(arrayOrObject instanceof Array){
+        arrayOrObject.forEach(elem =>{
+          this.populateUbsList(elem)
+        })
+      }else{
+        ubs_list.push( new Ubs(arrayOrObject) )
+      }
+    },
     filterUbs(name, filter_type){
       name        = name.toLowerCase()
       filter_type = filter_type.toLowerCase()
@@ -32,8 +48,8 @@ new Vue({
         this.ubs_list = ubs_list
       }else if(filter_type == "nome"){
         this.ubs_list = ubs_list.filter(ubs => ubs.nom_estab.toLowerCase().includes(name) )
-      }else if(filter_type == "cidade"){
-        this.ubs_list = ubs_list.filter(ubs => ubs.dsc_cidade.toLowerCase().includes(name) )
+      }else if(filter_type == "endereco"){
+        this.ubs_list = ubs_list.filter(ubs => ubs.endereco().toLowerCase().includes(name) )
       }
     }
   },

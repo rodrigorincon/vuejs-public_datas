@@ -10,9 +10,10 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "vue": "^2.5.11",
     "axios": "^0.15.3",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "papaparse": "^4.6.2",
+    "vue": "^2.5.11"
   },
   "browserslist": [
     "> 1%",
