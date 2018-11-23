@@ -18,6 +18,9 @@
 				</tr>
 			</tbody>
 		</table>
+		<div v-else>
+			<img src="../assets/ajax-loader.gif" alt="">
+		</div>
 	</div>
 </template>
 
