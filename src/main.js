@@ -17,10 +17,12 @@ new Vue({
   el: '#app',
   data(){
     return{
-      ubs_list: []
+      ubs_list: [],
+      loading_datas: true
     }
   },
   created(){
+    this.loading_datas = true
     axios.get("http://repositorio.dados.gov.br/saude/unidades-saude/unidade-basica-saude/ubs.csv",
     {
       mode: 'no-cors'
@@ -28,6 +30,7 @@ new Vue({
       var listOfArrays = Papa.parse(response.data,{header: true}).data
       this.populateUbsList(listOfArrays)
       this.ubs_list = ubs_list
+      this.loading_datas = false
     })
     EventBus.$on('filter', this.filterUbs )
   },
@@ -42,6 +45,7 @@ new Vue({
       }
     },
     filterUbs(name, filter_type){
+      this.loading_datas = true
       name        = name.toLowerCase()
       filter_type = filter_type.toLowerCase()
       if(filter_type == ""){
@@ -51,6 +55,7 @@ new Vue({
       }else if(filter_type == "endereco"){
         this.ubs_list = ubs_list.filter(ubs => ubs.endereco().toLowerCase().includes(name) )
       }
+      this.loading_datas = false
     }
   },
   router: new VueRouter({routes})

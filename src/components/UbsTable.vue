@@ -1,6 +1,6 @@
 <template>
 	<div class="ubsTable">
-		<table border="1" v-if="ubs_list.length > 0">
+		<table border="1">
 			<thead>
 				<th></th>
 				<th>Nome</th>
@@ -18,13 +18,10 @@
 				</tr>
 			</tbody>
 		</table>
-		<div v-else>
-			<img src="../assets/ajax-loader.gif" alt="">
-		</div>
 	</div>
 </template>
 
-<script>
+<script>	
 	export default {
 		props: ["ubs_list"]
 	}
