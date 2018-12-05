@@ -1,8 +1,17 @@
 import Vue from 'vue'
 
+import KEYS from './util/secrets'
+
 import VueRouter from 'vue-router'
 import routes from './routes.js'
+import * as VueGoogleMaps from "vue2-google-maps";
 Vue.use(VueRouter)
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: KEYS.GOOGLE_API_KEY,
+    libraries: "places" // necessary for places input
+  }
+});
 
 import Papa from 'papaparse'
 import axios from 'axios'
@@ -12,6 +21,8 @@ import {Ubs} from "./util/Ubs.js"
 var ubs_list = []
 
 import {EventBus} from './util/event-bus';
+
+
 
 new Vue({
   el: '#app',
@@ -36,12 +47,14 @@ new Vue({
   },
   methods:{
     populateUbsList(arrayOrObject){
-      if(arrayOrObject instanceof Array){
-        arrayOrObject.forEach(elem =>{
-          this.populateUbsList(elem)
-        })
-      }else{
-        ubs_list.push( new Ubs(arrayOrObject) )
+      if(ubs_list.length < 10){
+        if(arrayOrObject instanceof Array){
+          arrayOrObject.forEach(elem =>{
+            this.populateUbsList(elem)
+          })
+        }else{
+          ubs_list.push( new Ubs(arrayOrObject) )
+        }
       }
     },
     filterUbs(name, filter_type){

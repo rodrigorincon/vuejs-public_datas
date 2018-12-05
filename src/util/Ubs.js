@@ -52,6 +52,9 @@ export class Ubs {
 		}
 		return my_address
 	}
+	position(){
+		return {lat: Number(this.vlr_latitude), lng: Number(this.vlr_longitude)}
+	}
 	formatPhone(){
 		var phone = this.dsc_telefone
 		if(phone === null || phone.length != 10){ //quando o valor é "nao se aplica"
