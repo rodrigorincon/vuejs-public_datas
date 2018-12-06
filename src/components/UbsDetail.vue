@@ -7,7 +7,7 @@
 		</div>
 		<div style="width: 100%;">
 			<div style="width=50%;">
-				
+				<google-map :ubs_to_mark="[ubs]" :zoom="18" />
 			</div>
 			<div style="width=50%;">
 				<ul>
@@ -35,6 +35,7 @@
 
 <script>
 	import {Ubs} from "../util/Ubs.js"
+	import GoogleMap from "./GoogleMap.vue";
 
 	export default{
 		props: ["ubs_list"],
@@ -43,6 +44,9 @@
 				var my_ubs = this.ubs_list.find(ubs => ubs.cod_cnes === this.$route.params.id)
 				return my_ubs ? my_ubs : new Ubs()
 			}
+		},
+		components:{
+			GoogleMap
 		}
 	}
 </script>
