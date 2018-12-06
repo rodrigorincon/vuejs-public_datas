@@ -7,7 +7,7 @@
 		</div>
 		<div style="width: 100%;">
 			<div style="width=50%;">
-				<google-map :ubs_to_mark="[ubs]" :zoom="18" />
+				<google-map :ubs_to_mark="[ubs]" :zoom="18" :calcRoute="true" :key="2" />
 			</div>
 			<div style="width=50%;">
 				<ul>

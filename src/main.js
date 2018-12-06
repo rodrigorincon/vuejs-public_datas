@@ -9,9 +9,11 @@ Vue.use(VueRouter)
 Vue.use(VueGoogleMaps, {
   load: {
     key: KEYS.GOOGLE_API_KEY,
-    libraries: "places" // necessary for places input
+    libraries: "places"
   }
 });
+
+
 
 import Papa from 'papaparse'
 import axios from 'axios'

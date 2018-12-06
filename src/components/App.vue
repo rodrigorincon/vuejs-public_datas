@@ -3,7 +3,7 @@
     <div>
       <search></search>
       <div v-if="!loading && ubs_list.length > 0">
-        <google-map :ubs_to_mark="ubs_list" />
+        <google-map :ubs_to_mark="ubs_list"  :key="1" />
         <ubs-table :ubs_list="ubs_list"></ubs-table>
       </div>
       <div v-else-if="!loading && ubs_list.length == 0">
