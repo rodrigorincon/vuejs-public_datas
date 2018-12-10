@@ -72,7 +72,7 @@ export class Ubs {
 			localStorage.removeItem(this.cod_cnes);
 			this.isSaved = false
 		}else{
-			localStorage.setItem(this.cod_cnes, this);
+			localStorage.setItem(this.cod_cnes, JSON.stringify(this) );
 			this.isSaved = true
 		}
 	}

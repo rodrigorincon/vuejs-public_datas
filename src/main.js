@@ -41,6 +41,7 @@ new Vue({
       this.loading_datas = false
     })
     EventBus.$on('filter', this.filterUbs )
+    EventBus.$on('favorites', this.favoritesProc )
   },
   methods:{
     populateUbsList(arrayOrObject){
@@ -64,6 +65,16 @@ new Vue({
         this.ubs_list = ubs_list.filter(ubs => ubs.endereco().toLowerCase().includes(name) )
       }
       this.loading_datas = false
+    },
+    favoritesProc(showFav){
+      if(showFav){
+        var list = []
+        var keys = Object.keys(localStorage).slice(0, localStorage.length-1)
+        keys.forEach(key => list.push( new Ubs( JSON.parse( localStorage.getItem(key) ) ) ) )
+        this.ubs_list = list
+      }else{
+        this.ubs_list = ubs_list
+      }
     }
   },
   router: new VueRouter({routes})

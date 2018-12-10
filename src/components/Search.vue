@@ -8,6 +8,7 @@
 		</select>
 		<button @click="search">Pesquisar</button>
 		<button @click="clean">Limpar</button>
+		<button @click="favoritos">{{favoriteTextBtn}}</button>
 	</div>
 </template>
 
@@ -18,7 +19,13 @@
 		data(){
 			return{
 				searchText: "",
-				select_value: ""
+				select_value: "",
+				favoriteShowed: false
+			}
+		},
+		computed:{
+			favoriteTextBtn(){
+				return this.favoriteShowed ? "Mostrar todos" : "Mostrar favoritos"
 			}
 		},
 		methods:{
@@ -33,6 +40,12 @@
 				this.searchText = ""
 				this.select_value = ""
 				EventBus.$emit('filter', this.searchText, this.select_value)
+			},
+			favoritos(){
+				this.searchText = ""
+				this.select_value = ""
+				this.favoriteShowed = !this.favoriteShowed
+				EventBus.$emit('favorites', this.favoriteShowed)
 			}
 		}
 	}
