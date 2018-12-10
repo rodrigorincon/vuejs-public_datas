@@ -13,6 +13,7 @@ export class Ubs {
 		this.dsc_adap_defic_fisic_idosos = null
 		this.dsc_equipamentos = null
 		this.dsc_medicamentos = null
+		this.isSaved = false
 	}
 	constructor(raw_obj){
 		if(arguments.length){
@@ -29,6 +30,7 @@ export class Ubs {
 			this.dsc_adap_defic_fisic_idosos = raw_obj.dsc_adap_defic_fisic_idosos ? raw_obj.dsc_adap_defic_fisic_idosos : null
 			this.dsc_equipamentos = raw_obj.dsc_equipamentos ? raw_obj.dsc_equipamentos : null
 			this.dsc_medicamentos = raw_obj.dsc_medicamentos ? raw_obj.dsc_medicamentos : null
+			this.isSaved = this.verifyStorage()
 		}else{
 			this.defaultObj()
 		}
@@ -61,5 +63,17 @@ export class Ubs {
 			return "Não possui número de telefone cadastrado"
 		}
 		return "("+phone.substr(0,2)+") "+phone.substr(2,4)+"-"+phone.substr(6)
+	}
+	verifyStorage(){
+		return localStorage.getItem(this.cod_cnes) !== null
+	}
+	changeFavorite(){
+		if(this.isSaved){
+			localStorage.removeItem(this.cod_cnes);
+			this.isSaved = false
+		}else{
+			localStorage.setItem(this.cod_cnes, this);
+			this.isSaved = true
+		}
 	}
 }

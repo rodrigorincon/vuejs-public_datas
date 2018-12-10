@@ -5,23 +5,32 @@
 				<th></th>
 				<th>Nome</th>
 				<th>Endereço</th>
-				<th>Mais</th>
-				<th>Salvar nos favoritos</th>
+				<th>Mais Info</th>
+				<th></th>
 			</thead>
 			<tbody>
 				<tr v-for="ubs in ubs_list">
-					<td></td>
+					<td>
+						<i :class="{'fas fa-star': ubs.isSaved}"></i>
+					</td>
 					<td> {{ubs.nom_estab}} </td>
 					<td> {{ubs.endereco() }} </td>
-					<td> <router-link :to="{ name: 'ubs', params: {id: ubs.cod_cnes} }"> Mais </router-link></td>
-					<td> </td>
+					<td> <router-link :to="{ name: 'ubs', params: {id: ubs.cod_cnes} }"> <i class="fas fa-info-circle"></i> </router-link></td>
+					<td>
+						<strong v-if="ubs.isSaved" @click="ubs.changeFavorite()">
+							Tirar dos favoritos
+						</strong>
+						<strong v-else @click="ubs.changeFavorite()">
+							Salvar nos favoritos
+						</strong>
+					</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 </template>
 
-<script>	
+<script>
 	export default {
 		props: ["ubs_list"]
 	}
