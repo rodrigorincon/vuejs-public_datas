@@ -13,18 +13,13 @@ Vue.use(VueGoogleMaps, {
   }
 });
 
-
-
 import Papa from 'papaparse'
 import axios from 'axios'
 
 import {Ubs} from "./util/Ubs.js"
-
-var ubs_list = []
-
 import {EventBus} from './util/event-bus';
 
-
+var ubs_list = []
 
 new Vue({
   el: '#app',
@@ -49,14 +44,12 @@ new Vue({
   },
   methods:{
     populateUbsList(arrayOrObject){
-      if(ubs_list.length < 10){
-        if(arrayOrObject instanceof Array){
-          arrayOrObject.forEach(elem =>{
-            this.populateUbsList(elem)
-          })
-        }else{
-          ubs_list.push( new Ubs(arrayOrObject) )
-        }
+      if(arrayOrObject instanceof Array){
+        arrayOrObject.forEach(elem =>{
+          this.populateUbsList(elem)
+        })
+      }else{
+        ubs_list.push( new Ubs(arrayOrObject) )
       }
     },
     filterUbs(name, filter_type){
