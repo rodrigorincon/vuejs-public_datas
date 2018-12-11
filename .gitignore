@@ -4,6 +4,7 @@ dist/
 npm-debug.log
 yarn-error.log
 src/util/secrets.js
+coverage/
 
 # Editor directories and files
 .idea
