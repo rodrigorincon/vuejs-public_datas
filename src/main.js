@@ -13,11 +13,10 @@ Vue.use(VueGoogleMaps, {
   }
 });
 
-import Papa from 'papaparse'
-import axios from 'axios'
-
 import {Ubs} from "./util/Ubs.js"
 import {EventBus} from './util/event-bus';
+
+import ubs from './assets/ubs.csv'
 
 var ubs_list = []
 
@@ -30,16 +29,9 @@ new Vue({
     }
   },
   created(){
-    this.loading_datas = true
-    axios.get("http://repositorio.dados.gov.br/saude/unidades-saude/unidade-basica-saude/ubs.csv",
-    {
-      mode: 'no-cors'
-    }).then(response =>{
-      var listOfArrays = Papa.parse(response.data,{header: true}).data
-      this.populateUbsList(listOfArrays)
-      this.ubs_list = ubs_list
-      this.loading_datas = false
-    })
+    this.populateUbsList(ubs)
+    this.ubs_list = ubs_list
+    this.loading_datas = false
     EventBus.$on('filter', this.filterUbs )
     EventBus.$on('favorites', this.favoritesProc )
   },

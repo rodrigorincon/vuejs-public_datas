@@ -37,6 +37,15 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      {
+        test: /\.csv$/,
+        loader: "csv-loader",
+        options: {
+          dynamicTyping: true,
+          header: true,
+          skipEmptyLines: true
+        }
       }
     ]
   },
