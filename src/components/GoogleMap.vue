@@ -1,9 +1,16 @@
 <template>
   <div>
+    <div v-if="!hasKey" class="map error">
+      <div>
+        Para exibir o mapa é necessário uma <a href="https://developers.google.com/maps/documentation/javascript/get-api-key">Chave</a> do Google Maps<br/>
+        A chave deve ser adicionada no arquivo <code>src/util/secrets.js</code>. Para evitar subir sua chave rode <code>npm run secrets</code>    
+      </div>
+    </div>
     <gmap-map
+      v-if="hasKey"
       :center="center"
       :zoom="zoom"
-      style="width:100%;  height: 400px;"
+      class="map"
       ref="map"
     >
       <gmap-marker
@@ -17,6 +24,19 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import { GOOGLE_API_KEY } from '../util/secrets'
+import * as VueGoogleMaps from "vue2-google-maps";
+
+if(GOOGLE_API_KEY){
+  Vue.use(VueGoogleMaps, {
+    load: {
+      key: GOOGLE_API_KEY,
+      libraries: "places"
+    }
+  });
+}
+
 export default {
   props: {
     ubs_to_mark: { type: Array },
@@ -24,6 +44,7 @@ export default {
   },
   data() {
     return {
+      hasKey: Boolean(GOOGLE_API_KEY),
       center: { lat: -15.7940, lng: -47.8828 }
     };
   },
@@ -46,3 +67,15 @@ export default {
   }
 };
 </script>
+<style>
+  .map{
+    align-items: center;
+    background: #ccc;
+    width:100%;
+    height: 400px;
+  }
+  .map.error{
+    text-align:center;
+    display: flex;
+  }
+</style>

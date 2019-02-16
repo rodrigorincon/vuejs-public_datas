@@ -1,17 +1,9 @@
 import Vue from 'vue'
 
-import KEYS from './util/secrets'
 
 import VueRouter from 'vue-router'
 import routes from './routes.js'
-import * as VueGoogleMaps from "vue2-google-maps";
 Vue.use(VueRouter)
-Vue.use(VueGoogleMaps, {
-  load: {
-    key: KEYS.GOOGLE_API_KEY,
-    libraries: "places"
-  }
-});
 
 import {Ubs} from "./util/Ubs.js"
 import {EventBus} from './util/event-bus';
