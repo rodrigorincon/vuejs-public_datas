@@ -9,7 +9,7 @@
 				<th></th>
 			</thead>
 			<tbody>
-				<tr v-for="ubs in ubs_list">
+				<tr v-for="ubs in ubsList">
 					<td>
 						<i :class="{'fas fa-star': ubs.isSaved}"></i>
 					</td>
@@ -32,7 +32,7 @@
 
 <script>
 	export default {
-		props: ["ubs_list"]
+		props: ["ubsList"]
 	}
 </script>
 
