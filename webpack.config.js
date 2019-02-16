@@ -11,11 +11,19 @@ module.exports = {
   module: {
     rules: [
       {
+        enforce: 'pre',
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          formatter: require('eslint-friendly-formatter')
+        }
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
-          loaders: {
-          }
+          loaders: {}
           // other vue-loader options go here
         }
       },
@@ -26,10 +34,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          'vue-style-loader',
-          'css-loader'
-        ],
+        use: ['vue-style-loader', 'css-loader']
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -40,7 +45,7 @@ module.exports = {
       },
       {
         test: /\.csv$/,
-        loader: "csv-loader",
+        loader: 'csv-loader',
         options: {
           dynamicTyping: true,
           header: true,
@@ -51,7 +56,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      vue$: 'vue/dist/vue.esm.js'
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
