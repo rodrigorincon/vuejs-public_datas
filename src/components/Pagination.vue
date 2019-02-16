@@ -16,7 +16,7 @@
 			{{lastBtnText}}
 		</button>
 		<br>
-		<slot :listPaginated="objectsToShow"></slot>
+		<slot :list-paginated="objectsToShow"></slot>
 	</div>
 </template>
 

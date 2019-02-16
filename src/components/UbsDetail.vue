@@ -38,10 +38,10 @@
 	import GoogleMap from "./GoogleMap.vue";
 
 	export default{
-		props: ["ubs_list"],
+		props: ["ubsList"],
 		computed:{
 			ubs(){
-				var my_ubs = this.ubs_list.find(ubs => ubs.cod_cnes === this.$route.params.id)
+				var my_ubs = this.ubsList.find(ubs => ubs.cod_cnes === this.$route.params.id)
 				return my_ubs ? my_ubs : new Ubs()
 			}
 		},
