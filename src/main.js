@@ -1,6 +1,8 @@
 import Vue from 'vue'
-
 import VueRouter from 'vue-router'
+
+import './main.css'
+
 import routes from './routes.js'
 
 import { Ubs } from './util/Ubs.js'
