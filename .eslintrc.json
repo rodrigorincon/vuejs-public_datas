@@ -1,0 +1,13 @@
+{
+	"root": true,
+	"parser": "babel-eslint",
+	"parserOptions": {
+		"sourceType": "module"
+	},
+	"plugins": ["html"],
+	"env": {
+		"browser": true,
+		"jasmine": true
+	},
+	"extends": ["standard"]
+}
