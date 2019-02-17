@@ -1,0 +1,31 @@
+html{
+  font-size: 16px;
+  font-family: Roboto,sans-serif;
+}
+code {
+  border: 1px solid #FAFAFA;
+  border-radius: 0.25rem;
+  background: #EEEEEE;
+  color: #FF5252;
+  padding: 0 0.25rem;
+}
+table{
+  border-spacing: 0px;
+  th{
+    color: rgba(0, 0, 0, 0.54);
+    font-weight: 500;
+  }
+  td,th{
+    border-bottom: 1px solid #e0e0e0;
+    min-width: 5rem;
+    padding: 0.5rem
+  }
+}
+button{
+  cursor: pointer;
+}
+
+.half {
+	width: 50%;
+	float: left;
+}

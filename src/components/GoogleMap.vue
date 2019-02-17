@@ -8,7 +8,8 @@
             href="https://developers.google.com/maps/documentation/javascript/get-api-key"
           >Chave do Google Maps</a>
         </p>
-        <p>A chave deve ser adicionada no arquivo
+        <p>
+          A chave deve ser adicionada no arquivo
           <code>src/util/secrets.js</code>
         </p>
         <p>
@@ -77,7 +78,8 @@ export default {
 	align-items: center;
 	background: #bdbdbd;
 	width: 100%;
-	height: 400px;
+	min-height: 400px;
+	height: calc(100vh - 4rem);
 	&.error {
 		text-align: center;
 		display: flex;

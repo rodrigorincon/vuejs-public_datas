@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import './main.css'
+import './main.scss'
 
 import routes from './routes.js'
 
