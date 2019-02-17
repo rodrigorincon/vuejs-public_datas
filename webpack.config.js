@@ -44,7 +44,7 @@ module.exports = {
         use: ['vue-style-loader', 'css-loader']
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(ttf|eot|svg|otf|woff|woff2|gif)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]'

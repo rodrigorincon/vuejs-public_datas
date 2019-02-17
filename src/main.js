@@ -3,6 +3,10 @@ import VueRouter from 'vue-router'
 
 import './main.scss'
 
+import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
+import '@fortawesome/fontawesome-free/css/solid.min.css'
+import '@fortawesome/fontawesome-free/css/regular.min.css'
+
 import routes from './routes.js'
 
 import { Ubs } from './util/Ubs.js'
@@ -43,9 +47,9 @@ new Vue({
       const _ubs = ubs instanceof Array ? ubs : [ubs]
       ubsList = _ubs
         .map(x => new Ubs(x))
-        .sort(
-          (a, b) =>
-            a.cod_munic < b.cod_munic ? -1 : a.cod_munic > b.cod_munic ? 1 : 0
+        .filter(ubs => ubs.cod_munic)
+        .sort((a, b) =>
+          a.cod_munic < b.cod_munic ? -1 : a.cod_munic > b.cod_munic ? 1 : 0
         )
       this.ubsList = ubsList
     },
