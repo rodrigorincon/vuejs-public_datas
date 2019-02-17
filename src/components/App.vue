@@ -8,7 +8,7 @@
           :perPage="25"
           firstBtnText="Primeiros"
           lastBtnText="Últimos"
-          prevBtnText="Anteiores"
+          prevBtnText="Anterior"
           nextBtnText="Próximos"
         >
           <template slot-scope="props">
