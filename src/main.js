@@ -7,17 +7,12 @@ import routes from './routes.js'
 
 import { Ubs } from './util/Ubs.js'
 import { EventBus } from './util/event-bus'
+import { get } from 'axios'
+import Papa from 'papaparse'
 
-import ubs from './assets/ubs.csv'
 Vue.use(VueRouter)
 
-const _ubs = ubs instanceof Array ? ubs : [ubs]
-const ubsList = _ubs
-  .map(x => new Ubs(x))
-  .sort(
-    (a, b) =>
-      a.cod_munic < b.cod_munic ? -1 : a.cod_munic > b.cod_munic ? 1 : 0
-  )
+let ubsList = []
 
 // eslint-disable-next-line no-new
 new Vue({
@@ -29,12 +24,31 @@ new Vue({
     }
   },
   created () {
-    this.ubsList = ubsList
-    this.loading_datas = false
+    this.loading_datas = true
+    get('/dist/ubs.csv', {
+      mode: 'no-cors'
+    })
+      .then(({ data }) => {
+        var csv = Papa.parse(data, { header: true })
+        this.populateUbsList(csv.data)
+      })
+      .finally(e => {
+        this.loading_datas = false
+      })
     EventBus.$on('filter', this.filterUbs)
     EventBus.$on('favorites', this.favoritesProc)
   },
   methods: {
+    populateUbsList (ubs) {
+      const _ubs = ubs instanceof Array ? ubs : [ubs]
+      ubsList = _ubs
+        .map(x => new Ubs(x))
+        .sort(
+          (a, b) =>
+            a.cod_munic < b.cod_munic ? -1 : a.cod_munic > b.cod_munic ? 1 : 0
+        )
+      this.ubsList = ubsList
+    },
     filterUbs (name, filterType) {
       this.loading_datas = true
       name = name.toLowerCase()

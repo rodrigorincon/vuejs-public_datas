@@ -1,5 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
+
+const CopyPlugin = require('copy-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = {
@@ -47,15 +49,6 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
-      },
-      {
-        test: /\.csv$/,
-        loader: 'csv-loader',
-        options: {
-          dynamicTyping: true,
-          header: true,
-          skipEmptyLines: true
-        }
       }
     ]
   },
@@ -73,7 +66,7 @@ module.exports = {
   performance: {
     hints: false
   },
-  plugins: [new VueLoaderPlugin()],
+  plugins: [new VueLoaderPlugin(), new CopyPlugin(['./src/assets'])],
   devtool: '#eval-source-map'
 }
 
