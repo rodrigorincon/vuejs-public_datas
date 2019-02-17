@@ -8,12 +8,16 @@
           :perPage="25"
           firstBtnText="Primeiros"
           lastBtnText="Últimos"
-          prevBtnText="Anteiores"
+          prevBtnText="Anterior"
           nextBtnText="Próximos"
         >
           <template slot-scope="props">
-            <google-map :ubs_to_mark="props.listPaginated"/>
-            <ubs-table :ubs-list="props.listPaginated"></ubs-table>
+            <div class="half">
+              <google-map :ubs_to_mark="props.listPaginated"/>
+            </div>
+            <div class="half">
+              <ubs-table :ubs-list="props.listPaginated"></ubs-table>
+            </div>
           </template>
         </pagination>
       </div>
