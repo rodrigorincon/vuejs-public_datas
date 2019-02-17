@@ -1,73 +1,72 @@
 import Vue from 'vue'
-
-import KEYS from './util/secrets'
-
 import VueRouter from 'vue-router'
-import routes from './routes.js'
-import * as VueGoogleMaps from "vue2-google-maps";
-Vue.use(VueRouter)
-Vue.use(VueGoogleMaps, {
-  load: {
-    key: KEYS.GOOGLE_API_KEY,
-    libraries: "places"
-  }
-});
 
-import {Ubs} from "./util/Ubs.js"
-import {EventBus} from './util/event-bus';
+import './main.scss'
+
+import routes from './routes.js'
+
+import { Ubs } from './util/Ubs.js'
+import { EventBus } from './util/event-bus'
 
 import ubs from './assets/ubs.csv'
+Vue.use(VueRouter)
 
-var ubs_list = []
+const _ubs = ubs instanceof Array ? ubs : [ubs]
+const ubsList = _ubs
+  .map(x => new Ubs(x))
+  .sort(
+    (a, b) =>
+      a.cod_munic < b.cod_munic ? -1 : a.cod_munic > b.cod_munic ? 1 : 0
+  )
 
+// eslint-disable-next-line no-new
 new Vue({
   el: '#app',
-  data(){
-    return{
-      ubs_list: [],
+  data () {
+    return {
+      ubsList: [],
       loading_datas: true
     }
   },
-  created(){
-    this.populateUbsList(ubs)
-    this.ubs_list = ubs_list
+  created () {
+    this.ubsList = ubsList
     this.loading_datas = false
-    EventBus.$on('filter', this.filterUbs )
-    EventBus.$on('favorites', this.favoritesProc )
+    EventBus.$on('filter', this.filterUbs)
+    EventBus.$on('favorites', this.favoritesProc)
   },
-  methods:{
-    populateUbsList(arrayOrObject){
-      if(arrayOrObject instanceof Array){
-        arrayOrObject.forEach(elem =>{
-          this.populateUbsList(elem)
-        })
-      }else{
-        ubs_list.push( new Ubs(arrayOrObject) )
-      }
-    },
-    filterUbs(name, filter_type){
+  methods: {
+    filterUbs (name, filterType) {
       this.loading_datas = true
-      name        = name.toLowerCase()
-      filter_type = filter_type.toLowerCase()
-      if(filter_type == ""){
-        this.ubs_list = ubs_list
-      }else if(filter_type == "nome"){
-        this.ubs_list = ubs_list.filter(ubs => ubs.nom_estab.toLowerCase().includes(name) )
-      }else if(filter_type == "endereco"){
-        this.ubs_list = ubs_list.filter(ubs => ubs.endereco().toLowerCase().includes(name) )
+      name = name.toLowerCase()
+      filterType = filterType.toLowerCase()
+      if (filterType === '') {
+        this.ubsList = ubsList
+      } else if (filterType === 'nome') {
+        this.ubsList = ubsList.filter(ubs =>
+          ubs.nom_estab.toLowerCase().includes(name)
+        )
+      } else if (filterType === 'endereco') {
+        this.ubsList = ubsList.filter(ubs =>
+          ubs
+            .endereco()
+            .toLowerCase()
+            .includes(name)
+        )
       }
       this.loading_datas = false
     },
-    favoritesProc(showFav){
-      if(showFav){
+    favoritesProc (showFav) {
+      if (showFav) {
         var list = []
-        var keys = Object.keys(localStorage).slice(0, localStorage.length-1)
-        keys.forEach(key => list.push( new Ubs( JSON.parse( localStorage.getItem(key) ) ) ) )
-        this.ubs_list = list
-      }else{
-        this.ubs_list = ubs_list
+        var keys = Object.keys(localStorage).slice(0, localStorage.length - 1)
+        keys.forEach(key =>
+          list.push(new Ubs(JSON.parse(localStorage.getItem(key))))
+        )
+        this.ubsList = list
+      } else {
+        this.ubsList = ubsList
       }
     }
   },
-  router: new VueRouter({routes})
+  router: new VueRouter({ routes })
 })
