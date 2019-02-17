@@ -11,7 +11,13 @@ import { EventBus } from './util/event-bus'
 import ubs from './assets/ubs.csv'
 Vue.use(VueRouter)
 
-var ubsList = []
+const _ubs = ubs instanceof Array ? ubs : [ubs]
+const ubsList = _ubs
+  .map(x => new Ubs(x))
+  .sort(
+    (a, b) =>
+      a.cod_munic < b.cod_munic ? -1 : a.cod_munic > b.cod_munic ? 1 : 0
+  )
 
 // eslint-disable-next-line no-new
 new Vue({
@@ -23,23 +29,12 @@ new Vue({
     }
   },
   created () {
-    this.populateUbsList(ubs)
     this.ubsList = ubsList
-    this.test = ubsList
     this.loading_datas = false
     EventBus.$on('filter', this.filterUbs)
     EventBus.$on('favorites', this.favoritesProc)
   },
   methods: {
-    populateUbsList (arrayOrObject) {
-      if (arrayOrObject instanceof Array) {
-        arrayOrObject.forEach(elem => {
-          this.populateUbsList(elem)
-        })
-      } else {
-        ubsList.push(new Ubs(arrayOrObject))
-      }
-    },
     filterUbs (name, filterType) {
       this.loading_datas = true
       name = name.toLowerCase()
