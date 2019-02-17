@@ -1,11 +1,20 @@
 <template>
   <div>
     <div v-if="!hasKey" class="map error">
-      <div>Para exibir o mapa é necessário uma
-        <a href="https://developers.google.com/maps/documentation/javascript/get-api-key">Chave</a> do Google Maps
-        <br>A chave deve ser adicionada no arquivo
-        <code>src/util/secrets.js</code>. Para evitar subir sua chave rode
-        <code>npm run secrets</code>
+      <div>
+        <p>
+          Para exibir o mapa é necessário uma
+          <a
+            href="https://developers.google.com/maps/documentation/javascript/get-api-key"
+          >Chave do Google Maps</a>
+        </p>
+        <p>A chave deve ser adicionada no arquivo
+          <code>src/util/secrets.js</code>
+        </p>
+        <p>
+          Para evitar subir sua chave rode
+          <code>npm run secrets</code>
+        </p>
       </div>
     </div>
     <gmap-map v-if="hasKey" :center="center" :zoom="zoom" class="map" ref="map">
@@ -63,18 +72,18 @@ export default {
 	}
 };
 </script>
-<style>
+<style lang="scss">
 .map {
 	align-items: center;
-	background: #e0e0e0;
+	background: #bdbdbd;
 	width: 100%;
 	height: 400px;
-}
-.map.error {
-	text-align: center;
-	display: flex;
-}
-.map.error > div {
-	flex: 1;
+	&.error {
+		text-align: center;
+		display: flex;
+		> div {
+			flex: 1;
+		}
+	}
 }
 </style>
