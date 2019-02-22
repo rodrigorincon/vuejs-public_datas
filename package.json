@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --mode=development",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "deploy": "rm -rf node_modules/.cache && yarn build && cp index.html ./dist/ && touch dist/.nojekyll && git add dist/ && git commit -m \"Deploy Application to gh-pages\" && git subtree push --prefix dist origin gh-pages",
+    "deploy": "rm -rf node_modules/.cache && npm run build && touch dist/.nojekyll && git add dist/ && git commit -m \"Deploy Application to gh-pages\" && git subtree push --prefix dist origin gh-pages",
     "test": "jest",
     "secrets": "git update-index --assume-unchanged src/util/secrets.js"
   },

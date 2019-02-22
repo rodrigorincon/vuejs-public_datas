@@ -14,6 +14,9 @@ import { EventBus } from './util/event-bus'
 import { get } from 'axios'
 import Papa from 'papaparse'
 
+const ENV = process.env.NODE_ENV
+const ubsPatch = (ENV === 'development' ? '/dist/' : '') + 'ubs.csv'
+
 Vue.use(VueRouter)
 
 let ubsList = []
@@ -29,7 +32,7 @@ new Vue({
   },
   created () {
     this.loading_datas = true
-    get('/dist/ubs.csv', {
+    get(ubsPatch, {
       mode: 'no-cors'
     })
       .then(({ data }) => {
